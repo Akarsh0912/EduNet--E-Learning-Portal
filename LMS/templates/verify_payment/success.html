@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %} -Payment Success{% endblock %}
+{% load course_tags %}
+{% load static %}
+{% block content %}
+
+<div class="container py-8 py-lg-11">
+    <div class="row">
+        <div class="col-xl-8 mx-xl-auto">
+            <img src="{% static 'assets/img/success.png' %}" width="80px" class="img-fluid mx-auto d-block">
+            <header class="entry-header mt-4">
+                <h1 class="entry-title text-center">Order received</h1>
+                <p class="text-center">Thankyou , Your order has been received.</p>
+            </header>
+            <div class="row border border-info p-4">
+                <div class="col-lg-3">
+                    Order Id : <br />
+                    <strong>{{payment.order_id}}</strong>
+                </div>
+                <div class="col-lg-3">
+                    Date : <br />
+                    <strong>{{payment.date}}</strong>
+                </div>
+                <div class="col-lg-3">
+                    Total : <br />
+                    <strong>{{payment.course.price}}</strong>
+                </div>
+
+            </div>
+            <br />
+            <div class="row p-4 border border-dark">
+                <section class="woocommerce-order-details">
+                    <h2 class="woocommerce-order-details__title">Order details</h2>
+                    <table class="woocommerce-table woocommerce-table--order-details shop_table order_details">
+                        <thead>
+                            <tr>
+                                <th class="woocommerce-table__product-name product-name">Product</th>
+                                <th class="woocommerce-table__product-table product-total">Total</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr class="woocommerce-table__line-item order_item">
+                                <td class="woocommerce-table__product-name product-name">
+                                    <p>{{payment.course.title}}</p>
+
+                                </td>
+
+                                <td class="woocommerce-table__product-total product-total">
+                                    <span class="woocommerce-Price-amount amount"><span
+                                            class="woocommerce-Price-currencySymbol">₹
+                                        </span>{{payment.course.price}}</span>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <th scope="row">Discount:</th>
+                                <td><span class="woocommerce-Price-amount amount"><span
+                                            class="woocommerce-Price-currencySymbol"></span>{{payment.course.discount}}%</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Total:</th>
+                                <td>{% discount_calculation payment.course.price payment.course.discount %}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
